@@ -28,11 +28,9 @@ const uint8_t look_up[10] = {   // 7-segment display look up table
 0b10010000,  // 9
 };
 
-
 volatile int16_t counter;   // encoder angle counter
 uint16_t temp;
 uint8_t display[4] = {0,0,0,0}; // 7-seg display array
-
 
 void main(void)
 {
@@ -44,14 +42,12 @@ void main(void)
     //-- Initialize Clock
 
     //-- Configure Encoder
-    P3->DIR &= ~BIT6;   // P3.6 phaseA input
+    P3->DIR &= ~BIT6;   // P3.6 phaseA input 
     P3->IE  |= BIT6;
-    //P3->IES &= ~BIT6;   // rising edge triggered
     P5->DIR &= ~BIT3;   // P5.3 phaseB input
     P4->IE  |= BIT3;
-    //P5->IES &= ~BIT3;   // rising edge triggered
 
-    //-- Configure Display
+    //-- Configure 7-Seg Display
     P4->DIR = 0xFF;  // P4 is 7-segment LED output
     P8->DIR = 0xFF;  // P8 is display output
     P5->DIR |= BIT0; // P5.0 is red LED angle polarity indicator
