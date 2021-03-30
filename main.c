@@ -5,7 +5,7 @@
 * Device:  MSP432P401R LaunchPad                                               *
 * Program: Display encoder turn count on 7-segment display                     *
 *                                                                              *
-* Demo: https://www.youtube.com/watch?v=BwOXYYQE5To                            *
+* Demo: https://www.youtube.com/watch?v=wDcu66NudCA                            *
 *******************************************************************************/
 
 #include "msp.h"
