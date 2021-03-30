@@ -39,7 +39,6 @@ void main(void)
     //-- Configure NVIC
     NVIC->ISER[1] = 1 << ((PORT3_IRQn) & 31); //enable P3 and P5 interrupt
     NVIC->ISER[1] = 1 << ((PORT5_IRQn) & 31);
-    //-- Initialize Clock
 
     //-- Configure Encoder
     P3->DIR &= ~BIT6;   // P3.6 phaseA input 
@@ -84,7 +83,7 @@ void sseg_display(void){
         // Display digit-k
         P4->OUT = 0xFF;                      // blank 7-seg display
         P8->OUT = 0xFF & ~(BIT5 >> k);       // enable k-th digit in 7-seg display
-        P4->OUT = look_up[display[k]];                // display k-th digit in 7-seg display
+        P4->OUT = look_up[display[k]];       // display k-th digit in 7-seg display
 
         // increment k index
         k++;
