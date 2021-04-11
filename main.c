@@ -33,19 +33,19 @@ uint8_t display[4] = {0,0,0,0}; // 7-seg display array
 
 void main(void)
 {
-	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
+    WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD; // stop watchdog timer
 
-	//-- Configure NVIC
-	NVIC->ISER[1] = 1 << ((PORT3_IRQn) & 31); //enable P3 interrupt
+    //-- Configure NVIC
+    NVIC->ISER[1] = 1 << ((PORT3_IRQn) & 31); //enable P3 interrupt
 
-	//-- Configure Encoder
-	P3->DIR &= ~BIT6;   // phaseA input
-	P3->IE  |= BIT6;    // enable P3.6 interrupt
-	P3->IES &= ~BIT6;   // rising edge
+    //-- Configure Encoder
+    P3->DIR &= ~BIT6;   // phaseA input
+    P3->IE  |= BIT6;    // enable P3.6 interrupt
+    P3->IES &= ~BIT6;   // rising edge
 
-	P5->DIR &= ~BIT3;   // phaseB input
+    P5->DIR &= ~BIT3;   // phaseB input
 
-	//-- Configure 7-Seg Display
+    //-- Configure 7-Seg Display
     P4->DIR = 0xFF;  // P4 is 7-segment LED output
     P8->DIR = 0xFF;  // P8 is display output
     P5->DIR |= BIT0; // P5.0 is red LED angle polarity indicator
@@ -77,17 +77,17 @@ void sseg_display(void){
 
     static uint8_t k = 0;
 
-        // Display digit-k
-        P4->OUT = 0xFF;                      // blank 7-seg display
-        P8->OUT = 0xFF & ~(BIT5 >> k);       // enable k-th digit in 7-seg display
-        P4->OUT = look_up[display[k]];                // display k-th digit in 7-seg display
+    // Display digit-k
+    P4->OUT = 0xFF;                 // blank 7-seg display
+    P8->OUT = 0xFF & ~(BIT5 >> k);  // enable k-th digit in 7-seg display
+    P4->OUT = look_up[display[k]];  // display k-th digit in 7-seg display
 
-        // increment k index
-        k++;
-        if (k >= 4){k = 0;}
+    // increment k index
+    k++;
+    if (k >= 4){k = 0;}
 
-        // reduce flickering
-        wait(1000);
+    // reduce flickering
+    wait(1000);
 }
 
 void wait(uint32_t t){
@@ -95,7 +95,8 @@ void wait(uint32_t t){
 }
 
 //-- Interrupts
-void PORT3_IRQHandler(void){
+void PORT3_IRQHandler(void)
+{
     if(P3->IV & 0x0E){      // if phaseA is interrupt source (rising edge)
         if(P5->IN & BIT3){  // if phaseB is high
             counter--;      // decrement counter (CCW)
