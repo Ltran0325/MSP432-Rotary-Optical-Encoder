@@ -33,18 +33,19 @@ uint8_t display[4] = {0,0,0,0}; // 7-seg display array
 
 void main(void)
 {
-    WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD; // stop watchdog timer
+	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
 
-    //-- Configure NVIC
-    NVIC->ISER[1] = 1 << ((PORT3_IRQn) & 31); //enable P3 interrupt
+	//-- Configure NVIC
+	NVIC->ISER[1] = 1 << ((PORT3_IRQn) & 31); //enable P3 interrupt
 
-    //-- Configure Encoder
-    P3->DIR &= ~BIT6;   // phaseA inpu
-    P3->IE  |= BIT6;    // enable P3.6 interrupt
-    P3->IES &= ~BIT6;   // rising edge
+	//-- Configure Encoder
+	P3->DIR &= ~BIT6;   // phaseA input
+	P3->IE  |= BIT6;    // enable P3.6 interrupt
+	P3->IES &= ~BIT6;   // rising edge
 
-    P5->DIR &= ~BIT3;   // phaseB input
-    //-- Configure 7-Seg Display
+	P5->DIR &= ~BIT3;   // phaseB input
+
+	//-- Configure 7-Seg Display
     P4->DIR = 0xFF;  // P4 is 7-segment LED output
     P8->DIR = 0xFF;  // P8 is display output
     P5->DIR |= BIT0; // P5.0 is red LED angle polarity indicator
